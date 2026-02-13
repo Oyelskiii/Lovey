@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever With Cheng 💍</title>
+
+<style>
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  color:white;
+  overflow-x:hidden;
+  background:#0f0c29;
+  position:relative;
+}
+
+/* Cinematic Zoom + Fade */
+.section{
+  padding:60px 20px;
+  min-height:100vh;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  transform:scale(0.95);
+  transition:opacity 1.5s ease, transform 1.5s ease;
+}
+.active{display:flex; opacity:1; transform:scale(1);}
+
+/* Starry Background */
+.star{
+  position:absolute;
+  background:white;
+  border-radius:50%;
+  opacity:0.8;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{from{opacity:0.3;} to{opacity:1;}}
+
+/* Floating Hearts */
+.heart{
+  position:fixed;
+  bottom:0;
+  color:pink;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  0%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-50vh) scale(1.2);}
+  100%{transform:translateY(-100vh) scale(1);}
+}
+
+/* Glowing Diamond Ring */
+.ring{
+  width:120px;
+  height:120px;
+  background: radial-gradient(circle at center, gold 0%, rgba(255,255,255,0) 70%);
+  border-radius:50%;
+  position:relative;
+  box-shadow:0 0 30px gold;
+  animation:glow 2s infinite alternate, rotate 6s linear infinite, ringZoom 2s ease-in-out infinite alternate;
+  margin:30px auto;
+}
+.ring::before{
+  content:"💍";
+  font-size:70px;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+@keyframes glow{
+  from{box-shadow:0 0 20px gold;} to{box-shadow:0 0 50px gold;}
+}
+@keyframes rotate{
+  0%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-10px) rotate(180deg);}
+  100%{transform:translateY(0) rotate(360deg);}
+}
+@keyframes ringZoom{
+  from{transform:scale(1) rotate(0deg);}
+  to{transform:scale(1.2) rotate(360deg);}
+}
+
+/* Buttons & Cards */
+h1{font-size:28px;}
+p{font-size:16px; line-height:1.6;}
+button{
+  margin-top:20px;
+  padding:14px 28px;
+  border-radius:30px;
+  border:none;
+  background:#ff4e88;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{background:#ff1e6b; transform:scale(1.05);}
+.card{
+  background:rgba(255,255,255,0.08);
+  padding:20px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+}
+input{
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  width:80%;
+  margin-top:15px;
+  text-align:center;
+}
+.photo-gallery img{
+  width:90%;
+  max-width:300px;
+  border-radius:15px;
+  margin:10px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- Chorus Music -->
+<audio id="bgMusic">
+  <source src="c:\Users\loriel\OneDrive\Documents\Taylor Swift - Paper Rings (Official Audio).mp3" type="audio/mp3">
+</audio>
+
+<script>
+// Floating Stars
+for(let i=0;i<120;i++){
+  let star=document.createElement("div");
+  star.classList.add("star");
+  let size=Math.random()*2+1;
+  star.style.width=size+"px";
+  star.style.height=size+"px";
+  star.style.top=Math.random()*100+"vh";
+  star.style.left=Math.random()*100+"vw";
+  document.body.appendChild(star);
+}
+
+// Floating Hearts
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*window.innerWidth+"px";
+  heart.style.fontSize=Math.random()*15+15+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},500);
+
+// Chorus Music Loop
+const music=document.getElementById("bgMusic");
+const chorusStart=75;
+const chorusEnd=105;
+document.body.addEventListener("click",function(){
+  music.currentTime=chorusStart;
+  music.play();
+},{once:true});
+music.addEventListener("timeupdate",()=>{
+  if(music.currentTime>=chorusEnd) music.currentTime=chorusStart;
+});
+
+// Password
+const correctPassword="051421"; // Change to your secret
+function checkPassword(){
+  const input=document.getElementById("passwordInput").value;
+  if(input===correctPassword){
+    document.getElementById("lockScreen").classList.remove("active");
+    document.getElementById("intro").classList.add("active");
+  } else{
+    document.getElementById("error").innerText="Wrong password, Lovey 💔";
+  }
+}
+
+// Section navigation
+function showLetter(){document.getElementById("intro").classList.remove("active");document.getElementById("letter").classList.add("active");}
+function showReasons(){document.getElementById("letter").classList.remove("active");document.getElementById("reasons").classList.add("active");}
+function showPhotos(){document.getElementById("reasons").classList.remove("active");document.getElementById("photos").classList.add("active");}
+function showProposal(){document.getElementById("photos").classList.remove("active");document.getElementById("proposal").classList.add("active");}
+
+// Finale with interactive sunflowers, rings, hearts, sparkles
+function finale(){
+  document.body.innerHTML = `
+    <div id="finale" style="width:100%;height:100vh;position:relative;overflow:hidden;text-align:center;background:#0f0c29;">
+      <h1 style="margin-top:50px;font-size:36px;">Forever With Cheng 💍❤️</h1>
+      <p style="font-size:20px;">Happy 57th Monthsary & Happy Valentine's Day, My Lovey</p>
+      <p style="font-size:20px;">Love, Loriel</p>
+    </div>
+  `;
+
+  const finaleDiv = document.getElementById("finale");
+
+  // Floating hearts
+  setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.innerHTML="💖";
+    heart.style.position="absolute";
+    heart.style.left=Math.random()*window.innerWidth+"px";
+    heart.style.fontSize=Math.random()*25+15+"px";
+    heart.style.top=window.innerHeight+"px";
+    heart.style.transition="top 6s linear";
+    finaleDiv.appendChild(heart);
+    setTimeout(()=>{ heart.style.top="-50px"; },50);
+    setTimeout(()=>heart.remove(),6000);
+  },300);
+
+  // Floating sunflowers with rings
+  setInterval(()=>{
+    const flower = document.createElement("div");
+    flower.style.position="absolute";
+    flower.style.left=Math.random()*window.innerWidth+"px";
+    flower.style.top=window.innerHeight+"px";
+    flower.style.fontSize="50px";
+    flower.style.textAlign="center";
+    flower.innerHTML="🌻<div style='font-size:25px;margin-top:-35px;'>💍</div>";
+    finaleDiv.appendChild(flower);
+    setTimeout(()=>{ flower.style.transition="top 6s linear"; flower.style.top="-100px"; },50);
+    setTimeout(()=>flower.remove(),6000);
+  },700);
+
+  // Cursor-follow sparkles
+  document.addEventListener("mousemove", e=>{
+    const sparkle=document.createElement("div");
+    sparkle.innerHTML="✨";
+    sparkle.style.position="absolute";
+    sparkle.style.left=e.clientX+"px";
+    sparkle.style.top=e.clientY+"px";
+    sparkle.style.fontSize=Math.random()*20+10+"px";
+    sparkle.style.opacity="0.8";
+    finaleDiv.appendChild(sparkle);
+    setTimeout(()=>sparkle.remove(),600);
+  });
+
+  // Background stars
+  for(let i=0;i<80;i++){
+    let star=document.createElement("div");
+    star.classList.add("star");
+    let size=Math.random()*2+1;
+    star.style.width=size+"px";
+    star.style.height=size+"px";
+    star.style.top=Math.random()*100+"vh";
+    star.style.left=Math.random()*100+"vw";
+    finaleDiv.appendChild(star);
+  }
+}
+</script>
+
+<!-- PASSWORD -->
+<div class="section active" id="lockScreen">
+  <h1>Enter Our Secret, Lovey 🔐</h1>
+  <input type="password" id="passwordInput" placeholder="Enter password">
+  <button onclick="checkPassword()">Unlock ❤️</button>
+  <p id="error" style="color:pink;"></p>
+</div>
+
+<!-- INTRO -->
+<div class="section" id="intro">
+  <h1>Happy 57th Monthsary, Cheng ❤️</h1>
+  <p>4 Years & 9 Months With You, My Lovey</p>
+  <button onclick="showLetter()">Open My Heart 💌</button>
+</div>
+
+<!-- LETTER -->
+<div class="section" id="letter">
+  <div class="card">
+    <h1>To My Lovey 💕</h1>
+    <p>
+      My favorite memory isn’t one moment.<br>
+      It’s whenever I’m with you.<br><br>
+      When I’m with you, I feel peace.<br>
+      I feel home.<br><br>
+      I may not have a real ring yet…<br>
+      but just like Paper Rings,<br>
+      I would marry you with paper rings.<br><br>
+      Love always,<br>
+      Loriel ❤️
+    </p>
+  </div>
+  <button onclick="showReasons()">14 Reasons I Love You 💖</button>
+</div>
+
+<!-- REASONS -->
+<div class="section" id="reasons">
+  <div class="card">
+    <h1>14 Reasons I Love You ❤️</h1>
+    <p>
+      1. Your smile lights up my world.<br><br>
+      2. You make me feel safe.<br><br>
+      3. You are my best friend.<br><br>
+      4. You understand me deeply.<br><br>
+      5. You make simple moments magical.<br><br>
+      6. You choose me every day.<br><br>
+      7. You support me endlessly.<br><br>
+      8. You make my world brighter.<br><br>
+      9. You are beautiful inside and out.<br><br>
+      10. You believe in us.<br><br>
+      11. You are patient with me.<br><br>
+      12. You make love feel easy.<br><br>
+      13. Being with you feels like home.<br><br>
+      14. I can't imagine my future without you.
+    </p>
+  </div>
+  <button onclick="showPhotos()">Our Memories 📸</button>
+</div>
+
+<!-- PHOTOS -->
+<div class="section" id="photos">
+  <div class="card photo-gallery">
+    <h1>Our Beautiful Moments 📸</h1>
+    <img src="c:\Users\loriel\Downloads\1414.jpg">
+    <img src="c:\Users\loriel\Downloads\14.jpg">
+    <img src="c:\Users\loriel\Downloads\141414.jpg">
+    <p>My favorite memory will always be when I'm with you.</p>
+  </div>
+  <button onclick="showProposal()">One More Thing 💍</button>
+</div>
+
+<!-- PROPOSAL -->
+<div class="section" id="proposal">
+  <div class="ring"></div>
+  <h1>Even If It's Just Paper Rings...</h1>
+  <p>
+    Cheng, my Lovey…<br>
+    In every lifetime, I will always choose you.<br>
+    Will you stay with me forever? ❤️
+  </p>
+  <button onclick="finale()">YES, FOREVER 💖</button>
+</div>
+
+</body>
+</html>
